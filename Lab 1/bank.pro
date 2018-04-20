@@ -1,7 +1,10 @@
+domains
+	lastname, bank = symbol.
+	money, minmoney = integer. 
+
 predicates
-	% Lastname, Bank, Money
-	deposit(symbol, symbol, integer).
-	depositor(symbol, symbol, integer, integer)
+	deposit(lastname, bank, integer).
+	depositor(lastname, bank, money, minmoney).
 
 clauses
 	deposit("Ivanov"   , sberbank, 1000).

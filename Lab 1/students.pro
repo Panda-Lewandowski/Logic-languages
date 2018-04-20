@@ -1,8 +1,11 @@
+domains 
+	lastname, group, district, grade, condition = symbol.
+
 predicates
-	%   lastname, group, district, grade, condition
-	student(symbol, symbol, symbol, symbol, symbol).
-	%   lastname, condition
-	grant(symbol,symbol).
+	%student(symbol,symbol, symbol,symbol,symbol).
+	student(lastname, group, district, grade, condition).
+	%grant(symbol,symbol).
+	grant(lastname, condition).
 
 clauses
  	student("Ivanov"   , "IU7-61", "Strogino"  , "A", "").
@@ -20,6 +23,7 @@ clauses
 	student("Volkov"   , "IU7-62", "Strogino"  , "A", "orphan").
 	student("Vasilev"  , "IU7-64", "Strogino"  , "B", "scholar").
 	student("Pavlov"   , "IU7-61", "Ramenki"   , "D", "orphan").
+	student("A", "IU7-61", "Ramenki", "A","orphan").
 	
 	grant(Lastname, Condition) :- student(Lastname, _, _, _, Condition).
 
@@ -28,9 +32,9 @@ goal
 	%student(Lastname, "IU7-61", _, _, _).
 	%student(Lastname, "IU7-62", _, _, _).
 	%student(Lastname, "IU7-63", _, _, _).
-	
+	student(A,_,_,_,_),student(B,_,_,A,_).
 	% Students that are in the same group and district
 	%student(Lastname, "IU7-63", "Ramenki", _, _).
 	
 	% Students that are have grant
-	grant(Lastname, "scholar").
+	%grant(Lastname, "scholar").

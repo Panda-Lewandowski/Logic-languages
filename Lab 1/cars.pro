@@ -1,7 +1,10 @@
+domains 
+	brand, model, class1, color = symbol.
+	price = integer.
+	
 predicates
-	% brand, model, class, color, price 
-	car(symbol, symbol, symbol, symbol, integer).
-	byPrice(symbol, symbol, symbol, symbol, integer).
+	car(brand, model, class1, color, price).
+	byPrice(brand, model, class1, color, price).
 	
 clauses
   	car(daewoo, matiz, a, red, 300).
