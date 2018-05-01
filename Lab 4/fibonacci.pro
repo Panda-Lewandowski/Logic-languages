@@ -6,4 +6,4 @@ clauses
 	fibonacci(2,1):-!.
 	fibonacci(I,R):- I>2, I1=I-1, I2=I-2, fibonacci(I1,M), fibonacci(I2,N), R=N+M.
 goal
-	fibonacci(5, X).
+	fibonacci(10, X).
