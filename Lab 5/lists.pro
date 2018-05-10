@@ -15,6 +15,14 @@ predicates
 	append(ilist, ilist, ilist).
 	permutation(ilist, ilist).
 	bubble(ilist, ilist).
+	insert(integer, integer, ilist, ilist).
+	left(ilist, integer, ilist).
+	right(ilist, integer, ilist).
+	divide(ilist, integer, ilist, ilist).
+	qsort(ilist, ilist).
+	delete_nth(ilist, integer, ilist).
+	subsection(ilist, ilist, ilist).
+
 
 clauses
 	member(X, [X | _]).
@@ -50,7 +58,7 @@ clauses
 	reverse(List, ReverseList):-
    		reverse(List, [], ReverseList). 
 
-	reverse([], Buffer, Buffer):-!.
+	reverse([], Buffer, Buffer):-! .
 	reverse([Head|Tail], Buffer, ReverseList):-
    		reverse(Tail, [Head|Buffer], ReverseList).
    	
@@ -80,7 +88,58 @@ clauses
 	bubble(L,L1):-
      		permutation(L,LL),!, bubble(LL,L1). 
 	bubble(L,L).
-   		 
+	
+	insert(Elem, 0, List, [Elem|List]).
+	insert(Elem, N, [H|T], [H|R]):-
+		N1=N-1, 
+		insert(Elem, N1, T, R).
+		
+	%FIXME
+	left(List, 0, List):-!.
+	left([Head|Tail], N, Result):-
+		append(Tail, [Head], X), 
+		N1=N-1,
+		left(X, N1, Result).
+		
+		
+	 
+	right(List, 0, List):-!.
+	right([Head|Tail], N, Result):-
+		append(Tail, [Head], X),
+		N1=N-1, 
+		right(X, N1, Result).
+		
+	divide([], _, [], []):-!.
+	divide([Head|Tail], Pivot, [Head|GreaterList], SmallerList):-
+  		Head >= Pivot,
+  		 !, 
+  		divide(Tail, Pivot, GreaterList, SmallerList).
+	divide([Head|Tail], Pivot, GreaterList, [Head|SmallerList]):-
+  		divide(Tail, Pivot, GreaterList, SmallerList).
+		
+	qsort([], []).
+	qsort([Elem], [Elem]).
+	qsort([Pivot|Tail], SortedList):-
+  		divide(Tail, Pivot, GreaterList, SmallerList),
+  		qsort(GreaterList, SortedGreaterList),
+  		qsort(SmallerList, SortedSmallerList),!,
+  		append(SortedSmallerList, [Pivot|SortedGreaterList], SortedList).
+  	
+  	delete_nth([_|Tail], 0, Tail). 	
+  	delete_nth([Head|Tail], N, Result) :- 
+  		N1=N-1,
+  		delete_nth(Tail, N1, X), 
+  		append([Head], X, Result).
+  		
+  	subsection(List, List, List).
+  	subsection([], List, Res):-!.
+  	subsection([Head|Tail1], [Head|Tail2], Result):-
+  		append([Head], Result, NewResult), 
+  		subsection([Head|Tail1], Tail2, NewResult).  
+  	
+  		
+  	
+  	
 goal
 	%member(7, [1, 2, 3, 5]).
 	%sum([1,2,3,4,5], X).
@@ -92,7 +151,15 @@ goal
 	%append([1,2,3], X, [1,2,3,4,5,6]).
 	%append(X, [3,4,5], [1,2,3,4,5]).
 	%append(X, Y, [1,2,3]).
-	bubble([3,4,5,6,7], X).
+	
+	%bubble([3,4,5,6,7], X).
+	%insert(4, 0, [1,2,3,4,5], X).
+	%left([1,2,3,4], 2, X).
+	%qsort([2,3,1,5,8,9], X).
+	%delete_nth([1,2,3,4], 3, X).
+	
+	subsection([1,2,3,4,5], [5,4,3,2,1,6,7,8,9], X).
+	
 	
 	
 	
