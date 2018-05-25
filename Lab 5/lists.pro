@@ -21,8 +21,9 @@ predicates
 	divide(ilist, integer, ilist, ilist).
 	qsort(ilist, ilist).
 	delete_nth(ilist, integer, ilist).
-	subsection(ilist, ilist, ilist).
-
+	%subsection(ilist, ilist, ilist).
+	even_pos(ilist, ilist).
+	even_num(ilist, ilist). 
 
 clauses
 	member(X, [X | _]).
@@ -131,13 +132,21 @@ clauses
   		delete_nth(Tail, N1, X), 
   		append([Head], X, Result).
   		
-  	subsection(List, List, List).
-  	subsection([], List, Res):-!.
-  	subsection([Head|Tail1], [Head|Tail2], Result):-
-  		append([Head], Result, NewResult), 
-  		subsection([Head|Tail1], Tail2, NewResult).  
-  	
+  	%subsection(List, List, List).
+  	%subsection([], List, Res):-!.
+  	%subsection([Head|Tail1], [Head|Tail2], Result):-
+  		%append([Head], Result, NewResult), 
+  		%subsection([Head|Tail1], Tail2, NewResult).  
+  
+  
+  	even_pos([], []) :- !. 
+  	even_pos([_|[]], []) :- !.
+	even_pos([_, S| Tail], [S| Res]) :- even_pos(Tail, Res), !.
   		
+  		
+  	even_num([], []) :- !. 
+	even_num([Head|Tail], [Head|Res]) :- S = Head mod 2, S = 0, even_num(Tail, Res), !.
+	even_num([_|Tail], Res):- even_num(Tail, Res), !.
   	
   	
 goal
@@ -158,7 +167,9 @@ goal
 	%qsort([2,3,1,5,8,9], X).
 	%delete_nth([1,2,3,4], 3, X).
 	
-	subsection([1,2,3,4,5], [5,4,3,2,1,6,7,8,9], X).
+	%subsection([1,2,3,4,5], [5,4,3,2,1,6,7,8,9], X).
+	
+	even_pos([4, 2, 3], X).
 	
 	
 	
